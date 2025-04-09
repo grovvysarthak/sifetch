@@ -23,7 +23,7 @@ int main(void) {
         perror("Failed to open /etc/hostname");
         return 1;
     }
-    fgets(hostname, 1024, hostname_file);
+    fgets(hostname, sizeof hostname, hostname_file);
     fclose(hostname_file);
     
     char *newline = strchr(hostname, '\n');
@@ -40,7 +40,7 @@ int main(void) {
 
     // Get os-release           
     char os_release[1024];
-    char os_name[1024];
+    char os_name[1024] = "(unknown)";
     FILE *os_release_file = fopen("/etc/os-release", "r");
     if (os_release_file == NULL) {
         perror("Failed to open /etc/os-release");
